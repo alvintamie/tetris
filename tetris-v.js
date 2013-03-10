@@ -42,10 +42,12 @@ $(document).ready(function(){
 		draw_next_player_block(next_ctx,next_player_block,'Next');
 		if(saved_player_block != 'empty') draw_next_player_block(saved_ctx,saved_player_block,'Saved');
 		if(buffer_opponent_render_time == opponent_render_time){
+			console.log("enter buffer render time")
 			buffer_opponent_render_time = 0;
 			push_to_firebase(field);
 		}
 		else buffer_opponent_render_time++;
+		console.log(buffer_opponent_render_time)
 	}
 
 	$(document).keydown(function(e){
