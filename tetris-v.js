@@ -9,8 +9,8 @@ render_step = 400;
 ready = true;
 score = 0;
 number_shift_this_turn = 0;
-buffer_opponent_render_time = 0;
-opponent_render_time = 5;
+b_fire = 0;
+fire_duration = 5;
 $(document).ready(function(){
 	blocks = set_blocks();
 	field  = set_field();
@@ -36,7 +36,13 @@ $(document).ready(function(){
 		render_step);
 
 	function draw(ctx,next_ctx,player_block,next_player_block,field,saved_player_block){
-		push_to_firebase(field);
+		if(b_fire == fire_duration) {
+			push_to_firebase(field);
+			b_fire = 0;
+		}
+		else{
+			b_fire+=1;
+		}
 		player_block_shadow = player_block_bottom(player_block,field);
 		draw_field(ctx,field);
 		draw_player_block(ctx,player_block);
