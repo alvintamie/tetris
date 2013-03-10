@@ -36,25 +36,13 @@ $(document).ready(function(){
 		render_step);
 
 	function draw(ctx,next_ctx,player_block,next_player_block,field,saved_player_block){
-		console.log("draw");
+		push_to_firebase(field);
 		player_block_shadow = player_block_bottom(player_block,field);
 		draw_field(ctx,field);
 		draw_player_block(ctx,player_block);
 		draw_player_block_shadow(ctx,player_block_shadow,field);
 		draw_next_player_block(next_ctx,next_player_block,'Next');
 		if(saved_player_block != 'empty') draw_next_player_block(saved_ctx,saved_player_block,'Saved');
-		if(buffer_opponent_render_time == opponent_render_time){
-			console.log("enter buffer render time")
-			buffer_opponent_render_time = 0;
-			push_to_firebase(field);
-		}
-		else 
-		{
-			buffer_opponent_render_time++;
-		};
-		console.log('buffer render time');
-		console.log(buffer_opponent_render_time);
-		console.log(opponent_render_time);
 	}
 
 	$(document).keydown(function(e){
