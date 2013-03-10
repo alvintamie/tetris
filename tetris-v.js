@@ -45,6 +45,7 @@ $(document).ready(function(){
 			buffer_opponent_render_time = 0;
 			push_to_firebase(field);
 		}
+		else buffer_opponent_render_time++;
 	}
 
 	$(document).keydown(function(e){
