@@ -9,10 +9,10 @@ render_step = 400;
 ready = true;
 score = 0;
 number_shift_this_turn = 0;
+buffer_opponent_render_time = 0;
 $(document).ready(function(){
 	blocks = set_blocks();
 	field  = set_field();
-	firebase();
 	ctx = $("#player_field")[0].getContext('2d');
 	next_ctx = $("#next_player_block")[0].getContext('2d');
 	saved_ctx = $("#saved_player_block")[0].getContext('2d');
@@ -23,7 +23,7 @@ $(document).ready(function(){
 	var interval = setInterval(update=function(){
 		update_player_block(player_block);
 		if(check_player_block_collide(player_block,field)){	
-			if(!check_alive(player_block,field)) alert('You Lose');
+			if(!check_alive(player_block,field)) lost();
 			player_block_to_field(player_block,field);
 			player_block =  clone(next_player_block);
 			next_player_block = generate_player_block();
@@ -41,6 +41,10 @@ $(document).ready(function(){
 		draw_player_block_shadow(ctx,player_block_shadow,field);
 		draw_next_player_block(next_ctx,next_player_block,'Next');
 		if(saved_player_block != 'empty') draw_next_player_block(saved_ctx,saved_player_block,'Saved');
+		if(buffer_opponent_render_time == opponent_render_time){
+			buffer_opponent_render_time = 0;
+			push_to_firebase(field);
+		}
 	}
 
 	$(document).keydown(function(e){
@@ -181,7 +185,3 @@ function clone(o){
 	return jQuery.extend(true, {}, o);
 }
 
-function firebase(){
-	var myRootRef = new Firebase('https://tetris-firebase.firebaseIO.com//');
-	myRootRef.set('Hello World!');
-}
