@@ -36,6 +36,7 @@ $(document).ready(function(){
 		render_step);
 
 	function draw(ctx,next_ctx,player_block,next_player_block,field,saved_player_block){
+		console.log("draw");
 		player_block_shadow = player_block_bottom(player_block,field);
 		draw_field(ctx,field);
 		draw_player_block(ctx,player_block);
@@ -50,7 +51,7 @@ $(document).ready(function(){
 		else 
 		{
 			buffer_opponent_render_time++;
-		}
+		};
 		console.log('buffer render time');
 		console.log(buffer_opponent_render_time);
 		console.log(opponent_render_time);
