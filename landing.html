@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="application.css" rel="stylesheet" type="text/css">
+	<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+	<script src="jquery-min.js"></script>
+	<script src="landing.js"></script>
+    <link rel="stylesheet" href="jquery-ui-1.8.2.custom.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="jquery-min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.8.2.custom.min.js"></script>
+    <link type="text/css" href="jquery.ui.chatbox.css" rel="stylesheet" />
+    <script type="text/javascript" src="jquery.ui.chatbox.js"></script>
+    <script type="text/javascript">
+      var messagesRef = new Firebase('https://tetris-firebase.firebaseIO.com//');
+      $(document).ready(function(){     
+          var box = null;
+          box = $("#chat_div").chatbox({id:"chat_div", 
+                                                user:{key : "value"},
+                                                title : "test chat",
+                                                messageSent : function(id, user, msg) {
+                                                    $("#log").append(id + " said: " + msg + "<br/>");
+                                                messagesRef.push({name:'alvin',text:msg});
+                                                }
+                                              });
+      messagesRef.limit(10).on('child_added', function (snapshot) {
+        var msg = snapshot.val();
+        $("#chat_div").chatbox("option", "boxManager").addMsg(msg.name,msg.text);
+        });
+      })
+    </script>
+</head>
+
+<body>
+	<form action="/tetris-v.html">
+	    <input type="submit" value="Play">
+	</form>
+    <div id="chat_div">
+    </div>
+    <hr />
+    <div id="log">
+    </div>
+</body>
+</html>
+
+<div style="display: block;" class="ui-chatbox-msg"><b>alvin: </b><span>fuu</span></div>
+<b>alvin: </b>
+<span>fuu</span>
+<span>fuu</span>  
