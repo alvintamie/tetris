@@ -10,6 +10,7 @@ ready = true;
 score = 0;
 number_shift_this_turn = 0;
 buffer_opponent_render_time = 0;
+opponent_render_time = 5;
 $(document).ready(function(){
 	blocks = set_blocks();
 	field  = set_field();
@@ -46,8 +47,13 @@ $(document).ready(function(){
 			buffer_opponent_render_time = 0;
 			push_to_firebase(field);
 		}
-		else buffer_opponent_render_time++;
-		console.log(buffer_opponent_render_time)
+		else 
+		{
+			buffer_opponent_render_time++;
+		}
+		console.log('buffer render time');
+		console.log(buffer_opponent_render_time);
+		console.log(opponent_render_time);
 	}
 
 	$(document).keydown(function(e){
