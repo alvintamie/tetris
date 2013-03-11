@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 	function draw(ctx,next_ctx,player_block,next_player_block,field,saved_player_block){
 		if(b_fire == fire_duration) {
-			push_to_firebase(field);
+			push_to_firebase(field,player_block);
 			b_fire = 0;
 		}
 		else{
